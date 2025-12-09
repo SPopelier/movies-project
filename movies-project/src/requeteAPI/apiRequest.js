@@ -1,8 +1,21 @@
 import axios from "axios";
 
+const apiMovies = axios.create({
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
+
 export function axiosRequest() {
-    axios.get('http://localhost:8000/api/movies?page1&itemsPerPage=12')
-        .then(function (response) {
-            console.log(response);
-        })
+    apiMovies.get('/movies', {
+        params: {
+            page: 1,
+            itemsPerPage: 12
+        }
+    }).then(function (response) {
+        console.log(response);
+    })
+
+
 }
