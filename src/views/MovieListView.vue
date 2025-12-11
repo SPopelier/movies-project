@@ -1,19 +1,33 @@
-<script setup>
-import { ref, onMounted } from "vue";
-import api from "./api/axios.js";
+<script>
+import axios from "@/api/axios.js";
 import MovieCard from "@/components/MovieCard.vue";
 
-const movies = ref([]);
+export default {
+  name: "MovieListView" ,
+  components: {MovieCard},
+  data() {
+    return {
+      movies: []
+    }
+  },
 
-onMounted(async () => {
-  const res = await api.get("/movies");
-  movies.value = res.data;
-});
+  mounted() {
+    axios.get("/movies").then(res => {
+      this.movies = res.data.member;
+    })
+  }
+};
+
 </script>
 
 <template>
   <h1>Movies</h1>
-  <div class="movies">
-    <MovieCard v-for="m in movies" :key="m.id" :movie="m" />
+  <div class="moviesTitle">
+    <div v-for="m in movies">
+      <h2> {{m.title}} </h2>
+      <p>{{m.year}}</p>
+      <img :src="m.poster"/>
+    </div>
   </div>
+
 </template>

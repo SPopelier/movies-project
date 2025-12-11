@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiMovies = axios.create({
+export default axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
